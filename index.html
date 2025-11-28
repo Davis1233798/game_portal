@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手機遊戲入口網站 - 500+ 免費HTML5遊戲</title>
+    <meta name="description" content="最大的免費手機遊戲入口網站，提供500+款HTML5遊戲，包括益智、動作、賽車、IO遊戲等多種類型，全部支援手機和平板電腦">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2196F3">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">🎮 遊戲入口網站</h1>
+            <p class="subtitle">500+ 免費手機遊戲</p>
+        </div>
+    </header>
+
+    <nav class="nav-container">
+        <div class="container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜尋遊戲..." autocomplete="off">
+                <button id="searchBtn">🔍</button>
+            </div>
+            
+            <div class="filter-section">
+                <select id="categoryFilter">
+                    <option value="all">所有分類</option>
+                    <option value="action">動作遊戲</option>
+                    <option value="puzzle">益智遊戲</option>
+                    <option value="racing">賽車遊戲</option>
+                    <option value="io">IO遊戲</option>
+                    <option value="sports">運動遊戲</option>
+                    <option value="strategy">策略遊戲</option>
+                    <option value="arcade">街機遊戲</option>
+                    <option value="adventure">冒險遊戲</option>
+                    <option value="cartoon">卡通遊戲</option>
+                    <option value="match3">消除遊戲</option>
+                    <option value="mahjong">麻將遊戲</option>
+                    <option value="bubble">泡泡射擊</option>
+                    <option value="indie">獨立遊戲</option>
+                    <option value="skill">技能遊戲</option>
+                    <option value="multiplayer">多人遊戲</option>
+                    <option value="horror">恐怖遊戲</option>
+                    <option value="math">數學遊戲</option>
+                </select>
+                
+                <button id="randomBtn" class="random-btn">🎲 隨機遊戲</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="stats-bar">
+                <span id="gameCount">載入中...</span>
+                <span class="featured">⭐ 精選遊戲</span>
+            </div>
+            
+            <div class="category-tabs" id="categoryTabs">
+                <button class="tab-btn active" data-category="all">全部</button>
+                <button class="tab-btn" data-category="featured">精選</button>
+                <button class="tab-btn" data-category="action">動作</button>
+                <button class="tab-btn" data-category="puzzle">益智</button>
+                <button class="tab-btn" data-category="io">IO遊戲</button>
+                <button class="tab-btn" data-category="racing">賽車</button>
+                <button class="tab-btn" data-category="sports">運動</button>
+                <button class="tab-btn" data-category="strategy">策略</button>
+            </div>
+
+            <div class="games-grid" id="gamesGrid">
+                <div class="loading">
+                    <div class="loader"></div>
+                    <p>載入遊戲中...</p>
+                </div>
+            </div>
+
+            <div class="load-more">
+                <button id="loadMoreBtn" class="load-more-btn">載入更多遊戲</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>關於我們</h3>
+                    <p>提供最好的免費HTML5手機遊戲體驗</p>
+                </div>
+                <div class="footer-section">
+                    <h3>遊戲分類</h3>
+                    <ul>
+                        <li>動作遊戲</li>
+                        <li>益智遊戲</li>
+                        <li>賽車遊戲</li>
+                        <li>IO遊戲</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>特色</h3>
+                    <ul>
+                        <li>500+ 遊戲</li>
+                        <li>手機優化</li>
+                        <li>免費遊玩</li>
+                        <li>無需下載</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 遊戲入口網站. All rights reserved.</p>
+                <p>🎮 為手機遊戲愛好者打造</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Game Modal -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" id="closeModal">&times;</span>
+                <h2 id="modalGameTitle">遊戲標題</h2>
+            </div>
+            <div class="modal-body">
+                <iframe id="gameFrame" src="" frameborder="0" allowfullscreen></iframe>
+                <div class="game-info">
+                    <p id="modalGameDescription">遊戲描述</p>
+                    <div class="game-controls">
+                        <button id="playFullscreenBtn">全螢幕遊玩</button>
+                        <button id="favoriteBtn">❤️ 加入收藏</button>
+                        <button id="shareBtn">📱 分享遊戲</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="expanded-games.js"></script>
+    <script src="games.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

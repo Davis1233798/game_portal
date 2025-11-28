@@ -1,0 +1,43 @@
+{
+    "name": "手機遊戲入口網站 - 500+ 免費HTML5遊戲",
+    "short_name": "遊戲入口",
+    "description": "最大的免費手機遊戲入口網站，提供500+款HTML5遊戲",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "theme_color": "#2196F3",
+    "background_color": "#667eea",
+    "lang": "zh-TW",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9IiMyMTk2RjMiLz4KPHN2ZyB4PSI0OCIgeT0iNDgiIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0yMS4wMyA0LjkzYy0uNzgtLjc4LTIuMDQtLjc4LTIuODIgMGwtNC42IDQuNkMxMy40MSA5LjM1IDEzIDguOTQgMTMgOC41di0yQzEzIDUuNjcgMTIuMzMgNSAxMS41IDVTMTAgNS42NyAxMCA2LjV2MkM5IDkuMDYgOC41OSA5IDguNTkgOUw2LjU2IDYuNjZjLS4zMS0uMzEtLjgxLS4zMS0xLjEyIDBsLTEuMDUgMS4wNWMtLjMxLjMxLS4zMS44MSAwIDEuMTJMOCA4IDMgMTZjLS41NS0uNTUtMS40MS0uNTUtMS45NiAwLS41NS41NC0uNTUgMS40MSAwIDEuOTZMNC4xMSAxOC40MWMuNTUuNTUgMS40MS41NSAxLjk2IDBDNi4yNiAxOC4yMSA2LjQ0IDE3LjY5IDYuMjkgMTcuMjJMMTEuMjMgMTVsMS41IDEuNWMuMTguMTguNDMuMjQuNjcuMTYuMjQtLjA4LjQtLjMxLjQtLjU2di0yQzEzIDEzLjY3IDEzLjY3IDEzIDE0LjUgMTNzMS41LjY3IDEuNSAxLjV2MkMxNiAxNy4zMyAxNi42NyAxOCAxNy41IDE4UzE5IDE3LjMzIDE5IDE2LjV2LTJDMTU1IDE0LjQ3IDE5IDEwLjQ3IDIxIDhWNi41QzIxIDYuMjIgMjAuODkgNS45NCAyMC43MSA1Ljc3eiIvPgo8L3N2Zz4KPC9zdmc+",
+            "sizes": "192x192",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iNjQiIGZpbGw9IiMyMTk2RjMiLz4KPHN2ZyB4PSIxMjgiIHk9IjEyOCIgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPgo8cGF0aCBkPSJNMjEuMDMgNC45M2MtLjc4LS43OC0yLjA0LS43OC0yLjgyIDBsLTQuNiA0LjZDMTMuNDEgOS4zNSAxMyA4Ljk0IDEzIDguNXYtMkMxMyA1LjY3IDEyLjMzIDUgMTEuNSA1UzEwIDUuNjcgMTAgNi41djJDOSA5LjA2IDguNTkgOSA4LjU5IDlMNi41NiA2LjY2Yy0uMzEtLjMxLS44MS0uMzEtMS4xMiAwbC0xLjA1IDEuMDVjLS4zMS4zMS0uMzEuODEgMCAxLjEyTDggOCAzIDE2Yy0uNTUtLjU1LTEuNDEtLjU1LTEuOTYgMC0uNTUuNTQtLjU1IDEuNDEgMCAxLjk2TDQuMTEgMTguNDFjLjU1LjU1IDEuNDEuNTUgMS45NiAwQzYuMjYgMTguMjEgNi40NCAxNy42OSA2LjI5IDE3LjIyTDExLjIzIDE1bDEuNSAxLjVjLjE4LjE4LjQzLjI0LjY3LjE2LjI0LS4wOC40LS4zMS40LS41NnYtMkMxMyAxMy42NyAxMy42NyAxMyAxNC41IDEzczEuNS42NyAxLjUgMS41djJDMTYgMTcuMzMgMTYuNjcgMTggMTcuNSAxOFMxOSAxNy4zMyAxOSAxNi41di0yQzE1NSAxNC40NyAxOSAxMC40NyAyMSA4VjYuNUMyMSA2LjIyIDIwLjg5IDUuOTQgMjAuNzEgNS43N3oiLz4KPC9zdmc+Cjwvc3ZnPg==",
+            "sizes": "512x512",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["games", "entertainment"],
+    "screenshots": [
+        {
+            "src": "/screenshot1.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "遊戲入口網站主頁面"
+        }
+    ],
+    "features": [
+        "500+ free HTML5 games",
+        "Mobile optimized",
+        "No downloads required",
+        "Offline game list",
+        "Search and filter"
+    ]
+}
