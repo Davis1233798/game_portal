@@ -1,681 +1,669 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
+</div>
+</div>
+</header>
 
-<head>
-    <meta charset="UTF-8">
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <h1 class="logo">🎮 遊戲天堂</h1>
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="搜尋遊戲..." class="search-input">
-                <button id="searchBtn" class="search-btn">🔍</button>
-            </div>
-        </div>
-    </header>
+<!-- Category Filter -->
+<nav class="category-nav">
+    <div class="category-container">
+        <button class="category-btn active" data-category="all">全部</button>
+        <button class="category-btn" data-category="action">動作</button>
+        <button class="category-btn" data-category="puzzle">益智</button>
+        <button class="category-btn" data-category="racing">賽車</button>
+        <button class="category-btn" data-category="arcade">街機</button>
+        <button class="category-btn" data-category="sports">體育</button>
+        <button class="category-btn" data-category="shooter">射擊</button>
+        <button class="category-btn" data-category="strategy">策略</button>
+        <button class="category-btn" data-category="multiplayer">多人</button>
+    </div>
+</nav>
 
-    <!-- Category Filter -->
-    <nav class="category-nav">
-        <div class="category-container">
-            <button class="category-btn active" data-category="all">全部</button>
-            <button class="category-btn" data-category="action">動作</button>
-            <button class="category-btn" data-category="puzzle">益智</button>
-            <button class="category-btn" data-category="racing">賽車</button>
-            <button class="category-btn" data-category="arcade">街機</button>
-            <button class="category-btn" data-category="sports">體育</button>
-            <button class="category-btn" data-category="shooter">射擊</button>
-            <button class="category-btn" data-category="strategy">策略</button>
-            <button class="category-btn" data-category="multiplayer">多人</button>
-        </div>
-    </nav>
+<!-- Game Stats -->
+<div class="stats-container">
+    <div class="stat-item">
+        <span class="stat-number" id="totalGames">500+</span>
+        <span class="stat-label">遊戲總數</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number" id="playedToday">0</span>
+        <span class="stat-label">今日遊玩</span>
+    </div>
+</div>
 
-    <!-- Game Stats -->
-    <div class="stats-container">
-        <div class="stat-item">
-            <span class="stat-number" id="totalGames">500+</span>
-            <span class="stat-label">遊戲總數</span>
+<!-- Featured Games Section -->
+<section class="featured-section">
+    <h2 class="section-title">🌟 精選遊戲</h2>
+    <div class="featured-games" id="featuredGames">
+        <!-- Featured games will be loaded here -->
+    </div>
+</section>
+
+<!-- Games Grid -->
+<section class="games-section">
+    <h2 class="section-title">🎯 所有遊戲</h2>
+    <div class="filter-info">
+        <span id="filterInfo">顯示所有遊戲</span>
+        <span id="gameCount">(500+ 個遊戲)</span>
+    </div>
+    <div class="games-grid" id="gamesGrid">
+        <!-- Games will be loaded here by JavaScript -->
+    </div>
+    <div class="load-more-container">
+        <button id="loadMoreBtn" class="load-more-btn">載入更多遊戲</button>
+    </div>
+</section>
+
+<!-- Loading Spinner -->
+<div class="loading-spinner" id="loadingSpinner">
+    <div class="spinner"></div>
+    <p>載入遊戲中...</p>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 遊戲天堂 - 免費HTML5手機遊戲入口網站</p>
+        <p>所有遊戲均為第三方開發，本站僅提供連結服務</p>
+    </div>
+</footer>
+</div>
+
+<!-- Game Modal -->
+<div id="gameModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalGameTitle">遊戲標題</h3>
+            <button class="close-btn" id="closeModal">&times;</button>
         </div>
-        <div class="stat-item">
-            <span class="stat-number" id="playedToday">0</span>
-            <span class="stat-label">今日遊玩</span>
+        <div class="modal-body">
+            <iframe id="gameFrame" src="" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
+</div>
 
-    <!-- Featured Games Section -->
-    <section class="featured-section">
-        <h2 class="section-title">🌟 精選遊戲</h2>
-        <div class="featured-games" id="featuredGames">
-            <!-- Featured games will be loaded here -->
-        </div>
-    </section>
+<script>
+    // 遊戲資料庫 - 500+ HTML5 手機遊戲
+    const initialGames = [
+        // 動作遊戲 (Action Games)
+        {
+            id: 1,
+            title: "Subway Surfers: Hong Kong",
+            description: "經典跑酷遊戲香港版，躲避障礙物收集金幣",
+            category: "action",
+            url: "https://i.gse.io/subway-surfers/hong-kong/",
+            image: "https://img.kuioo.tw/i/subway-surfers-hong-kong.webp",
+            featured: true,
+            rating: 4.9
+        },
+        {
+            id: 2,
+            title: "Stickman Hook",
+            description: "用鉤子在城市中擺盪的火柴人遊戲",
+            category: "action",
+            url: "https://mountain658.github.io/g/stickmanhook/index.html",
+            image: "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/0076b4a8bc3893ad8a7aab5ce9a7dc37.png",
+            featured: true,
+            rating: 4.7
+        },
+        {
+            id: 3,
+            title: "Temple Run 2",
+            description: "神廟逃亡續作，更多挑戰等你來闖",
+            category: "action",
+            url: "https://y2k04.github.io/templerun2/",
+            image: "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/5f5e0b75a2e9a4b85ad8c56a0c8a3c5a.png",
+            featured: true,
+            rating: 4.6
+        },
+        {
+            id: 4,
+            title: "Geometry Dash",
+            description: "節奏跑酷遊戲，考驗反應速度",
+            category: "action",
+            url: "https://scratch.mit.edu/projects/105500895/embed",
+            image: "https://via.placeholder.com/300x200/ffff00/000000?text=Geometry+Dash",
+            rating: 4.5
+        },
+        {
+            id: 5,
+            title: "Crossy Road",
+            description: "過馬路遊戲，小心車輛",
+            category: "action",
+            url: "https://scratch.mit.edu/projects/115682042/embed",
+            image: "https://via.placeholder.com/300x200/00ff00/ffffff?text=Crossy+Road",
+            rating: 4.4
+        },
+        {
+            id: 6,
+            title: "Bloxd.io",
+            description: "沙盒王國，多人線上方塊建造遊戲",
+            category: "action",
+            url: "https://bloxd.io/",
+            image: "https://img.kuioo.tw/i/bloxd-io.webp",
+            featured: true,
+            rating: 4.8
+        },
 
-    <!-- Games Grid -->
-    <section class="games-section">
-        <h2 class="section-title">🎯 所有遊戲</h2>
-        <div class="filter-info">
-            <span id="filterInfo">顯示所有遊戲</span>
-            <span id="gameCount">(500+ 個遊戲)</span>
-        </div>
-        <div class="games-grid" id="gamesGrid">
-            <!-- Games will be loaded here by JavaScript -->
-        </div>
-        <div class="load-more-container">
-            <button id="loadMoreBtn" class="load-more-btn">載入更多遊戲</button>
-        </div>
-    </section>
+        // 益智遊戲 (Puzzle Games)
+        {
+            id: 7,
+            title: "2048",
+            description: "滑動數字方塊，達到2048的經典益智遊戲",
+            category: "puzzle",
+            url: "https://gabrielecirulli.github.io/2048/",
+            image: "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/2048-icon.png",
+            featured: true,
+            rating: 4.7
+        },
+        {
+            id: 8,
+            title: "Tetris",
+            description: "經典俄羅斯方塊，永恆的益智遊戲",
+            category: "puzzle",
+            url: "https://chvin.github.io/react-tetris/",
+            image: "https://via.placeholder.com/300x200/00ff00/ffffff?text=Tetris",
+            featured: true,
+            rating: 4.9
+        },
+        {
+            id: 9,
+            title: "Sudoku",
+            description: "經典數獨遊戲",
+            category: "puzzle",
+            url: "https://html5.gamedistribution.com/97371764fe9e49339292edb3599e1975/",
+            image: "https://via.placeholder.com/300x200/4169e1/ffffff?text=Sudoku",
+            rating: 4.6
+        },
 
-    <!-- Loading Spinner -->
-    <div class="loading-spinner" id="loadingSpinner">
-        <div class="spinner"></div>
-        <p>載入遊戲中...</p>
-    </div>
+        // 賽車遊戲 (Racing Games)
+        {
+            id: 11,
+            title: "Drive Mad",
+            description: "瘋狂駕駛遊戲，在崎嶇地形中保持平衡",
+            category: "racing",
+            url: "https://ubg77.github.io/edit/drive-mad/",
+            image: "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/drive-mad.png",
+            featured: true,
+            rating: 4.7
+        },
+        {
+            id: 12,
+            title: "Moto X3M",
+            description: "摩托車特技賽車遊戲",
+            category: "racing",
+            url: "https://html5.gamedistribution.com/5d3c767d44d44d68a943566b9059c30f/",
+            image: "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/moto-x3m.png",
+            rating: 4.6
+        },
+        {
+            id: 13,
+            title: "Slope",
+            description: "3D滾球跑酷遊戲",
+            category: "racing",
+            url: "https://kdata1.com/2020/05/slope/",
+            image: "https://via.placeholder.com/300x200/00ff00/000000?text=Slope",
+            featured: true,
+            rating: 4.5
+        },
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p>&copy; 2024 遊戲天堂 - 免費HTML5手機遊戲入口網站</p>
-            <p>所有遊戲均為第三方開發，本站僅提供連結服務</p>
-        </div>
-    </footer>
-    </div>
+        // 街機遊戲 (Arcade Games)
+        {
+            id: 14,
+            title: "Pac-Man",
+            description: "經典小精靈遊戲，吃豆避鬼的永恆經典",
+            category: "arcade",
+            url: "https://nisreensalameh.github.io/PacMan-game/",
+            image: "https://via.placeholder.com/300x200/ffff00/000000?text=Pac-Man",
+            featured: true,
+            rating: 4.9
+        },
+        {
+            id: 15,
+            title: "Flappy Bird",
+            description: "點擊飛行的小鳥遊戲，簡單卻極具挑戰性",
+            category: "arcade",
+            url: "https://aaarafat.github.io/JS-Flappy-Bird/",
+            image: "https://via.placeholder.com/300x200/87ceeb/ffffff?text=Flappy+Bird",
+            rating: 4.4
+        },
+        {
+            id: 16,
+            title: "Chrome Dino",
+            description: "斷網時的小恐龍遊戲",
+            category: "arcade",
+            url: "https://wayou.github.io/t-rex-runner/",
+            image: "https://via.placeholder.com/300x200/cccccc/000000?text=Dino",
+            rating: 4.8
+        },
 
-    <!-- Game Modal -->
-    <div id="gameModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalGameTitle">遊戲標題</h3>
-                <button class="close-btn" id="closeModal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <iframe id="gameFrame" src="" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
+        // 體育遊戲 (Sports Games)
+        {
+            id: 17,
+            title: "Basketball Stars",
+            description: "籃球明星對戰遊戲",
+            category: "sports",
+            url: "https://html5.gamedistribution.com/69d78d071f704fa183d75b4114ae4043/",
+            image: "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/basketball-stars.png",
+            rating: 4.5
+        },
+        {
+            id: 18,
+            title: "Football Legends",
+            description: "足球傳奇遊戲，展現你的足球技巧",
+            category: "sports",
+            url: "https://html5.gamedistribution.com/4f9093ce5ac740a5a474e72880e47244/",
+            image: "https://via.placeholder.com/300x200/00aa00/ffffff?text=Football+Legends",
+            rating: 4.4
+        },
 
-    <script>
-        // 遊戲資料庫 - 500+ HTML5 手機遊戲
-        const initialGames = [
-            // 動作遊戲 (Action Games)
-            {
-                id: 1,
-                title: "Subway Surfers: Hong Kong",
-                description: "經典跑酷遊戲香港版，躲避障礙物收集金幣",
-                category: "action",
-                url: "https://i.gse.io/subway-surfers/hong-kong/",
-                image: "https://img.kuioo.tw/i/subway-surfers-hong-kong.webp",
-                featured: true,
-                rating: 4.9
-            },
-            {
-                id: 2,
-                title: "Stickman Hook",
-                description: "用鉤子在城市中擺盪的火柴人遊戲",
-                category: "action",
-                url: "https://mountain658.github.io/g/stickmanhook/index.html",
-                image: "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/0076b4a8bc3893ad8a7aab5ce9a7dc37.png",
-                featured: true,
-                rating: 4.7
-            },
-            {
-                id: 3,
-                title: "Temple Run 2",
-                description: "神廟逃亡續作，更多挑戰等你來闖",
-                category: "action",
-                url: "https://y2k04.github.io/templerun2/",
-                image: "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/5f5e0b75a2e9a4b85ad8c56a0c8a3c5a.png",
-                featured: true,
-                rating: 4.6
-            },
-            {
-                id: 4,
-                title: "Geometry Dash",
-                description: "節奏跑酷遊戲，考驗反應速度",
-                category: "action",
-                url: "https://scratch.mit.edu/projects/105500895/embed",
-                image: "https://via.placeholder.com/300x200/ffff00/000000?text=Geometry+Dash",
-                rating: 4.5
-            },
-            {
-                id: 5,
-                title: "Crossy Road",
-                description: "過馬路遊戲，小心車輛",
-                category: "action",
-                url: "https://scratch.mit.edu/projects/115682042/embed",
-                image: "https://via.placeholder.com/300x200/00ff00/ffffff?text=Crossy+Road",
-                rating: 4.4
-            },
-            {
-                id: 6,
-                title: "Bloxd.io",
-                description: "沙盒王國，多人線上方塊建造遊戲",
-                category: "action",
-                url: "https://bloxd.io/",
-                image: "https://img.kuioo.tw/i/bloxd-io.webp",
-                featured: true,
-                rating: 4.8
-            },
+        // 射擊遊戲 (Shooter Games)
+        {
+            id: 19,
+            title: "Shell Shockers",
+            description: "蛋殼射擊遊戲，多人線上FPS",
+            category: "shooter",
+            url: "https://shellshock.io/",
+            image: "https://img.kuioo.tw/i/shell-shockers.webp",
+            rating: 4.6
+        },
 
-            // 益智遊戲 (Puzzle Games)
-            {
-                id: 7,
-                title: "2048",
-                description: "滑動數字方塊，達到2048的經典益智遊戲",
-                category: "puzzle",
-                url: "https://gabrielecirulli.github.io/2048/",
-                image: "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/2048-icon.png",
-                featured: true,
-                rating: 4.7
-            },
-            {
-                id: 8,
-                title: "Tetris",
-                description: "經典俄羅斯方塊，永恆的益智遊戲",
-                category: "puzzle",
-                url: "https://chvin.github.io/react-tetris/",
-                image: "https://via.placeholder.com/300x200/00ff00/ffffff?text=Tetris",
-                featured: true,
-                rating: 4.9
-            },
-            {
-                id: 9,
-                title: "Sudoku",
-                description: "經典數獨遊戲",
-                category: "puzzle",
-                url: "https://html5.gamedistribution.com/97371764fe9e49339292edb3599e1975/",
-                image: "https://via.placeholder.com/300x200/4169e1/ffffff?text=Sudoku",
-                rating: 4.6
-            },
+        // 策略遊戲 (Strategy Games)
+        {
+            id: 21,
+            title: "Chess",
+            description: "國際象棋在線對戰",
+            category: "strategy",
+            url: "https://lichess.org/tv/frame?theme=brown&bg=dark",
+            image: "https://via.placeholder.com/300x200/8B4513/ffffff?text=Chess",
+            rating: 4.8
+        },
+        {
+            id: 22,
+            title: "都道府縣大戰",
+            description: "經典策略遊戲，統一日本",
+            category: "strategy",
+            url: "http://www.dan-ball.jp/javagame/toudou/",
+            image: "http://www.gamesmomo.com/gmimg/6780.gif",
+            featured: true,
+            rating: 4.8
+        },
 
-            // 賽車遊戲 (Racing Games)
-            {
-                id: 11,
-                title: "Drive Mad",
-                description: "瘋狂駕駛遊戲，在崎嶇地形中保持平衡",
-                category: "racing",
-                url: "https://ubg77.github.io/edit/drive-mad/",
-                image: "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/drive-mad.png",
-                featured: true,
-                rating: 4.7
-            },
-            {
-                id: 12,
-                title: "Moto X3M",
-                description: "摩托車特技賽車遊戲",
-                category: "racing",
-                url: "https://html5.gamedistribution.com/5d3c767d44d44d68a943566b9059c30f/",
-                image: "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/moto-x3m.png",
-                rating: 4.6
-            },
-            {
-                id: 13,
-                title: "Slope",
-                description: "3D滾球跑酷遊戲",
-                category: "racing",
-                url: "https://kdata1.com/2020/05/slope/",
-                image: "https://via.placeholder.com/300x200/00ff00/000000?text=Slope",
-                featured: true,
-                rating: 4.5
-            },
+        // 多人遊戲 (Multiplayer Games)
+        {
+            id: 23,
+            title: "Agar.io",
+            description: "細胞大作戰多人在線遊戲",
+            category: "multiplayer",
+            url: "https://agar.io/",
+            image: "https://via.placeholder.com/300x200/00ff7f/ffffff?text=Agar.io",
+            rating: 4.6
+        }
+    ];
 
-            // 街機遊戲 (Arcade Games)
-            {
-                id: 14,
-                title: "Pac-Man",
-                description: "經典小精靈遊戲，吃豆避鬼的永恆經典",
-                category: "arcade",
-                url: "https://nisreensalameh.github.io/PacMan-game/",
-                image: "https://via.placeholder.com/300x200/ffff00/000000?text=Pac-Man",
-                featured: true,
-                rating: 4.9
-            },
-            {
-                id: 15,
-                title: "Flappy Bird",
-                description: "點擊飛行的小鳥遊戲，簡單卻極具挑戰性",
-                category: "arcade",
-                url: "https://aaarafat.github.io/JS-Flappy-Bird/",
-                image: "https://via.placeholder.com/300x200/87ceeb/ffffff?text=Flappy+Bird",
-                rating: 4.4
-            },
-            {
-                id: 16,
-                title: "Chrome Dino",
-                description: "斷網時的小恐龍遊戲",
-                category: "arcade",
-                url: "https://wayou.github.io/t-rex-runner/",
-                image: "https://via.placeholder.com/300x200/cccccc/000000?text=Dino",
-                rating: 4.8
-            },
+    // 添加更多遊戲到達500+個
+    const crawledGames = [
+        {
+            id: 150,
+            title: "海綿寶寶皮老闆迷宮",
+            description: "From Gamesmomo: 海綿寶寶皮老闆迷宮",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=2653",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.5
+        },
+        {
+            id: 151,
+            title: "毛球愛餅乾",
+            description: "From Gamesmomo: 毛球愛餅乾",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=4594",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.8
+        },
+        {
+            id: 152,
+            title: "末日寶典中文版",
+            description: "From Gamesmomo: 末日寶典中文版",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=6279",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.1
+        },
+        {
+            id: 153,
+            title: "真",
+            description: "From Gamesmomo: 真",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=5268",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.4
+        },
+        {
+            id: 154,
+            title: "桌球io",
+            description: "From Gamesmomo: 桌球io",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=6608",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 3.6
+        },
+        {
+            id: 155,
+            title: "史蒂夫萬歲",
+            description: "From Gamesmomo: 史蒂夫萬歲",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=4570",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.6
+        },
+        {
+            id: 157,
+            title: "楓之谷天空歷險",
+            description: "From Gamesmomo: 楓之谷天空歷險",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=2645",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.0
+        },
+        {
+            id: 158,
+            title: "密碼強度測試",
+            description: "From Gamesmomo: 密碼強度測試",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=2994",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.4
+        },
+        {
+            id: 159,
+            title: "紫色恐怖無敵版",
+            description: "From Gamesmomo: 紫色恐怖無敵版",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=3331",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 3.7
+        },
+        {
+            id: 160,
+            title: "北斗神拳7",
+            description: "From Gamesmomo: 北斗神拳7",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=4931",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.8
+        },
+        {
+            id: 161,
+            title: "火柴人6",
+            description: "From Gamesmomo: 火柴人6",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=3327",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.9
+        },
+        {
+            id: 162,
+            title: "爆龍戰隊紅色救援",
+            description: "From Gamesmomo: 爆龍戰隊紅色救援",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=3339",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 3.7
+        },
+        {
+            id: 166,
+            title: "NBA LIVE 97雙人版",
+            description: "From Gamesmomo: NBA LIVE 97雙人版",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=4907",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 5.0
+        },
+        {
+            id: 167,
+            title: "海綿寶寶快打天王",
+            description: "From Gamesmomo: 海綿寶寶快打天王",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=2641",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 3.7
+        },
+        {
+            id: 168,
+            title: "火焰蟲蟲",
+            description: "From Gamesmomo: 火焰蟲蟲",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=4005",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 3.5
+        },
+        {
+            id: 170,
+            title: "龍珠激鬥2.9無敵版",
+            description: "From Gamesmomo: 龍珠激鬥2.9無敵版",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=6640",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.3
+        },
+        {
+            id: 171,
+            title: "小便超人",
+            description: "From Gamesmomo: 小便超人",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=3680",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.2
+        },
+        {
+            id: 172,
+            title: "奇人黑桃2",
+            description: "From Gamesmomo: 奇人黑桃2",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=6295",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 3.9
+        },
+        {
+            id: 174,
+            title: "dora教英文",
+            description: "From Gamesmomo: dora教英文",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=3668",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 3.8
+        },
+        {
+            id: 175,
+            title: "毀滅戰士",
+            description: "From Gamesmomo: 毀滅戰士",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=2982",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.8
+        },
+        {
+            id: 176,
+            title: "老大戰爭",
+            description: "From Gamesmomo: 老大戰爭",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=6616",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.9
+        },
+        {
+            id: 179,
+            title: "轉轉小方塊2",
+            description: "From Gamesmomo: 轉轉小方塊2",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=4013",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 3.8
+        },
+        {
+            id: 180,
+            title: "可愛抱枕消消樂",
+            description: "From Gamesmomo: 可愛抱枕消消樂",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=2312",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.2
+        },
+        {
+            id: 181,
+            title: "勇者鬥惡龍3",
+            description: "From Gamesmomo: 勇者鬥惡龍3",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=4923",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.7
+        },
+        {
+            id: 182,
+            title: "火影忍者變裝秀6",
+            description: "From Gamesmomo: 火影忍者變裝秀6",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=2998",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.9
+        },
+        {
+            id: 183,
+            title: "祖瑪糖果版",
+            description: "From Gamesmomo: 祖瑪糖果版",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=3672",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 3.8
+        },
+        {
+            id: 184,
+            title: "露琪亞vs迪達拉",
+            description: "From Gamesmomo: 露琪亞vs迪達拉",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=3664",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.8
+        },
+        {
+            id: 185,
+            title: "越獄父子3雙人版",
+            description: "From Gamesmomo: 越獄父子3雙人版",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=6632",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.9
+        },
+        {
+            id: 187,
+            title: "火影忍者RPG1",
+            description: "From Gamesmomo: 火影忍者RPG1",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=2990",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.8
+        },
+        {
+            id: 188,
+            title: "淨化木乃伊",
+            description: "From Gamesmomo: 淨化木乃伊",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=4233",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.7
+        },
+        {
+            id: 192,
+            title: "迷你七龍珠Z完整故事篇1.01雙人版",
+            description: "From Gamesmomo: 迷你七龍珠Z完整故事篇1.01雙人版",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=4578",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.9
+        },
+        {
+            id: 193,
+            title: "卡比之星2",
+            description: "From Gamesmomo: 卡比之星2",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=3323",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.8
+        },
+        {
+            id: 195,
+            title: "壽司消消樂",
+            description: "From Gamesmomo: 壽司消消樂",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=4021",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.3
+        },
+        {
+            id: 196,
+            title: "五子棋",
+            description: "From Gamesmomo: 五子棋",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=6303",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 3.5
+        },
+        {
+            id: 197,
+            title: "欺負蚊子",
+            description: "From Gamesmomo: 欺負蚊子",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=3335",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.7
+        },
+        {
+            id: 198,
+            title: "超級瑪莉鬼屋2",
+            description: "From Gamesmomo: 超級瑪莉鬼屋2",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=4586",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.7
+        },
+        {
+            id: 199,
+            title: "英雄聖戰中文版",
+            description: "From Gamesmomo: 英雄聖戰中文版",
+            category: "arcade",
+            url: "http://www.gamesmomo.com/0g-aa2.asp?id=6287",
+            image: "https://via.placeholder.com/300x200?text=Game",
+            rating: 4.9
+        },
+    ];
 
-            // 體育遊戲 (Sports Games)
-            {
-                id: 17,
-                title: "Basketball Stars",
-                description: "籃球明星對戰遊戲",
-                category: "sports",
-                url: "https://html5.gamedistribution.com/69d78d071f704fa183d75b4114ae4043/",
-                image: "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/basketball-stars.png",
-                rating: 4.5
-            },
-            {
-                id: 18,
-                title: "Football Legends",
-                description: "足球傳奇遊戲，展現你的足球技巧",
-                category: "sports",
-                url: "https://html5.gamedistribution.com/4f9093ce5ac740a5a474e72880e47244/",
-                image: "https://via.placeholder.com/300x200/00aa00/ffffff?text=Football+Legends",
-                rating: 4.4
-            },
+    // 將所有遊戲合併
+    console.log("Merging games...");
+    console.log("initialGames length:", typeof initialGames !== 'undefined' ? initialGames.length : 'undefined');
+    console.log("crawledGames length:", typeof crawledGames !== 'undefined' ? crawledGames.length : 'undefined');
 
-            // 射擊遊戲 (Shooter Games)
-            {
-                id: 19,
-                title: "Shell Shockers",
-                description: "蛋殼射擊遊戲，多人線上FPS",
-                category: "shooter",
-                url: "https://shellshock.io/",
-                image: "https://img.kuioo.tw/i/shell-shockers.webp",
-                rating: 4.6
-            },
+    const allGames = [...(typeof initialGames !== 'undefined' ? initialGames : []), ...(typeof crawledGames !== 'undefined' ? crawledGames : [])];
 
-            // 策略遊戲 (Strategy Games)
-            {
-                id: 21,
-                title: "Chess",
-                description: "國際象棋在線對戰",
-                category: "strategy",
-                url: "https://lichess.org/tv/frame?theme=brown&bg=dark",
-                image: "https://via.placeholder.com/300x200/8B4513/ffffff?text=Chess",
-                rating: 4.8
-            },
-            {
-                id: 22,
-                title: "都道府縣大戰",
-                description: "經典策略遊戲，統一日本",
-                category: "strategy",
-                url: "http://www.dan-ball.jp/javagame/toudou/",
-                image: "http://www.gamesmomo.com/gmimg/6780.gif",
-                featured: true,
-                rating: 4.8
-            },
+    console.log("allGames length:", allGames.length);
 
-            // 多人遊戲 (Multiplayer Games)
-            {
-                id: 23,
-                title: "Agar.io",
-                description: "細胞大作戰多人在線遊戲",
-                category: "multiplayer",
-                url: "https://agar.io/",
-                image: "https://via.placeholder.com/300x200/00ff7f/ffffff?text=Agar.io",
-                rating: 4.6
-            }
-        ];
+    // 導出遊戲資料庫
+    window.gamesDatabase = allGames;
 
-        // 添加更多遊戲到達500+個
-        const crawledGames = [
-            {
-                id: 150,
-                title: "海綿寶寶皮老闆迷宮",
-                description: "From Gamesmomo: 海綿寶寶皮老闆迷宮",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=2653",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.5
-            },
-            {
-                id: 151,
-                title: "毛球愛餅乾",
-                description: "From Gamesmomo: 毛球愛餅乾",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=4594",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.8
-            },
-            {
-                id: 152,
-                title: "末日寶典中文版",
-                description: "From Gamesmomo: 末日寶典中文版",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=6279",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.1
-            },
-            {
-                id: 153,
-                title: "真",
-                description: "From Gamesmomo: 真",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=5268",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.4
-            },
-            {
-                id: 154,
-                title: "桌球io",
-                description: "From Gamesmomo: 桌球io",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=6608",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 3.6
-            },
-            {
-                id: 155,
-                title: "史蒂夫萬歲",
-                description: "From Gamesmomo: 史蒂夫萬歲",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=4570",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.6
-            },
-            {
-                id: 157,
-                title: "楓之谷天空歷險",
-                description: "From Gamesmomo: 楓之谷天空歷險",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=2645",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.0
-            },
-            {
-                id: 158,
-                title: "密碼強度測試",
-                description: "From Gamesmomo: 密碼強度測試",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=2994",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.4
-            },
-            {
-                id: 159,
-                title: "紫色恐怖無敵版",
-                description: "From Gamesmomo: 紫色恐怖無敵版",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=3331",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 3.7
-            },
-            {
-                id: 160,
-                title: "北斗神拳7",
-                description: "From Gamesmomo: 北斗神拳7",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=4931",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.8
-            },
-            {
-                id: 161,
-                title: "火柴人6",
-                description: "From Gamesmomo: 火柴人6",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=3327",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.9
-            },
-            {
-                id: 162,
-                title: "爆龍戰隊紅色救援",
-                description: "From Gamesmomo: 爆龍戰隊紅色救援",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=3339",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 3.7
-            },
-            {
-                id: 166,
-                title: "NBA LIVE 97雙人版",
-                description: "From Gamesmomo: NBA LIVE 97雙人版",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=4907",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 5.0
-            },
-            {
-                id: 167,
-                title: "海綿寶寶快打天王",
-                description: "From Gamesmomo: 海綿寶寶快打天王",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=2641",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 3.7
-            },
-            {
-                id: 168,
-                title: "火焰蟲蟲",
-                description: "From Gamesmomo: 火焰蟲蟲",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=4005",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 3.5
-            },
-            {
-                id: 170,
-                title: "龍珠激鬥2.9無敵版",
-                description: "From Gamesmomo: 龍珠激鬥2.9無敵版",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=6640",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.3
-            },
-            {
-                id: 171,
-                title: "小便超人",
-                description: "From Gamesmomo: 小便超人",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=3680",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.2
-            },
-            {
-                id: 172,
-                title: "奇人黑桃2",
-                description: "From Gamesmomo: 奇人黑桃2",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=6295",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 3.9
-            },
-            {
-                id: 174,
-                title: "dora教英文",
-                description: "From Gamesmomo: dora教英文",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=3668",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 3.8
-            },
-            {
-                id: 175,
-                title: "毀滅戰士",
-                description: "From Gamesmomo: 毀滅戰士",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=2982",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.8
-            },
-            {
-                id: 176,
-                title: "老大戰爭",
-                description: "From Gamesmomo: 老大戰爭",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=6616",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.9
-            },
-            {
-                id: 179,
-                title: "轉轉小方塊2",
-                description: "From Gamesmomo: 轉轉小方塊2",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=4013",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 3.8
-            },
-            {
-                id: 180,
-                title: "可愛抱枕消消樂",
-                description: "From Gamesmomo: 可愛抱枕消消樂",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=2312",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.2
-            },
-            {
-                id: 181,
-                title: "勇者鬥惡龍3",
-                description: "From Gamesmomo: 勇者鬥惡龍3",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=4923",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.7
-            },
-            {
-                id: 182,
-                title: "火影忍者變裝秀6",
-                description: "From Gamesmomo: 火影忍者變裝秀6",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=2998",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.9
-            },
-            {
-                id: 183,
-                title: "祖瑪糖果版",
-                description: "From Gamesmomo: 祖瑪糖果版",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=3672",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 3.8
-            },
-            {
-                id: 184,
-                title: "露琪亞vs迪達拉",
-                description: "From Gamesmomo: 露琪亞vs迪達拉",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=3664",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.8
-            },
-            {
-                id: 185,
-                title: "越獄父子3雙人版",
-                description: "From Gamesmomo: 越獄父子3雙人版",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=6632",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.9
-            },
-            {
-                id: 187,
-                title: "火影忍者RPG1",
-                description: "From Gamesmomo: 火影忍者RPG1",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=2990",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.8
-            },
-            {
-                id: 188,
-                title: "淨化木乃伊",
-                description: "From Gamesmomo: 淨化木乃伊",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=4233",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.7
-            },
-            {
-                id: 192,
-                title: "迷你七龍珠Z完整故事篇1.01雙人版",
-                description: "From Gamesmomo: 迷你七龍珠Z完整故事篇1.01雙人版",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=4578",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.9
-            },
-            {
-                id: 193,
-                title: "卡比之星2",
-                description: "From Gamesmomo: 卡比之星2",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=3323",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.8
-            },
-            {
-                id: 195,
-                title: "壽司消消樂",
-                description: "From Gamesmomo: 壽司消消樂",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=4021",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.3
-            },
-            {
-                id: 196,
-                title: "五子棋",
-                description: "From Gamesmomo: 五子棋",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=6303",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 3.5
-            },
-            {
-                id: 197,
-                title: "欺負蚊子",
-                description: "From Gamesmomo: 欺負蚊子",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=3335",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.7
-            },
-            {
-                id: 198,
-                title: "超級瑪莉鬼屋2",
-                description: "From Gamesmomo: 超級瑪莉鬼屋2",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=4586",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.7
-            },
-            {
-                id: 199,
-                title: "英雄聖戰中文版",
-                description: "From Gamesmomo: 英雄聖戰中文版",
-                category: "arcade",
-                url: "http://www.gamesmomo.com/0g-aa2.asp?id=6287",
-                image: "https://via.placeholder.com/300x200?text=Game",
-                rating: 4.9
-            },
-        ];
+    // 類別配置
+    window.gameCategories = {
+        all: { name: '全部', icon: '🎮' },
+        action: { name: '動作', icon: '⚡' },
+        puzzle: { name: '益智', icon: '🧩' },
+        racing: { name: '賽車', icon: '🏎️' },
+        arcade: { name: '街機', icon: '🕹️' },
+        sports: { name: '體育', icon: '⚽' },
+        shooter: { name: '射擊', icon: '🔫' },
+        strategy: { name: '策略', icon: '♟️' },
+        multiplayer: { name: '多人', icon: '👥' }
+    };
 
-        // 將所有遊戲合併
-        console.log("Merging games...");
-        console.log("initialGames length:", typeof initialGames !== 'undefined' ? initialGames.length : 'undefined');
-        console.log("crawledGames length:", typeof crawledGames !== 'undefined' ? crawledGames.length : 'undefined');
-
-        const allGames = [...(typeof initialGames !== 'undefined' ? initialGames : []), ...(typeof crawledGames !== 'undefined' ? crawledGames : [])];
-
-        console.log("allGames length:", allGames.length);
-
-        // 導出遊戲資料庫
-        window.gamesDatabase = allGames;
-
-        // 類別配置
-        window.gameCategories = {
-            all: { name: '全部', icon: '🎮' },
-            action: { name: '動作', icon: '⚡' },
-            puzzle: { name: '益智', icon: '🧩' },
-            racing: { name: '賽車', icon: '🏎️' },
-            arcade: { name: '街機', icon: '🕹️' },
-            sports: { name: '體育', icon: '⚽' },
-            shooter: { name: '射擊', icon: '🔫' },
-            strategy: { name: '策略', icon: '♟️' },
-            multiplayer: { name: '多人', icon: '👥' }
-        };
-
-        console.log(`遊戲資料庫已載入，共 ${allGames.length} 個遊戲`);
-    </script>
-    <script src="script.js"></script>
-    </body>
+    console.log(`遊戲資料庫已載入，共 ${allGames.length} 個遊戲`);
+</script>
+<script src="script.js"></script>
+</body>
 
 </html>
